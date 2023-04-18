@@ -7,9 +7,9 @@ let yScale
 
 let width = 800
 let height = 400
-let padding = 40
+let padding = 60
 
-let svg = d3.select('svg')
+let svg = d3.select('#graph')
 let tooltip = d3.select('#tooltip')
 
 const drawCanvas = () => {
@@ -65,12 +65,13 @@ const drawCircles = () => {
                 .style('visibility', 'visible')
             
             if(item['Doping'] != ""){
-                tooltip.text(item['Year'] + ' - ' + item['Name'] + ' - ' + item['Time'] + ' - ' + item['Doping'])
+                tooltip.html(`${item.Name}: ${item.Nationality}</br>Year:${item.Year}, Time:${item.Time}</br></br>${item.Doping}`);
+
             }else{
-                tooltip.text(item['Year'] + ' - ' + item['Name'] + ' - ' + item['Time'] + ' - ' + 'No Allegations')
+                tooltip.html(`${item.Name}: ${item.Nationality}</br>Year:${item.Year}, Time:${item.Time}</br></br>No allegations`)
             }
             
-            tooltip.attr('data-year', item['Year'])
+            tooltip.attr('data-year', item.Year)
         })
         .on('mouseout', (item) => {
             tooltip.transition()
@@ -100,7 +101,7 @@ req.onload = () => {
     console.log(values)
     drawCanvas()
     getScales()
-    generateAxis()
     drawCircles()
+    generateAxis()
 }
 req.send()
