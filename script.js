@@ -1,6 +1,17 @@
-let url = 'https://raw.githubusercontent.com/freeCodeCamp/ProjectReferenceData/master/cyclist-data.json'
-let req = new XMLHttpRequest
+//let url = 'https://raw.githubusercontent.com/freeCodeCamp/ProjectReferenceData/master/cyclist-data.json'
+//let req = new XMLHttpRequest
 let values = [] //values from api will be here
+fetch('https://raw.githubusercontent.com/freeCodeCamp/ProjectReferenceData/master/cyclist-data.json')
+.then(res => res.json())
+.then(data => {
+    values = data;
+    console.log(values)
+    drawCanvas()
+    getScales()
+    drawCircles()
+    generateAxis()
+})
+.catch(error => console.error(error))
 
 let xScale
 let yScale
@@ -95,7 +106,7 @@ const generateAxis = () => {
         .attr('transform', `translate(${padding}, 0)`)
 }
 
-req.open('GET', url, true)
+/*req.open('GET', url, true)
 req.onload = () => {
     values = JSON.parse(req.responseText)
     console.log(values)
@@ -104,4 +115,4 @@ req.onload = () => {
     drawCircles()
     generateAxis()
 }
-req.send()
+req.send()*/
